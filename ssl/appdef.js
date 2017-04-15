@@ -49,7 +49,7 @@ app = function() {
             IsStateless:                true,
             Chain: [
                 {
-                    BaseImage:          "polyverse-internal.jfrog.io/redirector:latest",
+                    BaseImage:          "polyverse-internal.jfrog.io/redirect:latest",
                     HealthCheckURLPath: "/health",
                     LaunchGracePeriod:  10 * 1000000000,
                     Cmd:                ["/entrypoint.sh","-bind=80","-scheme=https"],
