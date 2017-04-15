@@ -22,7 +22,7 @@ app = function() {
                     LaunchGracePeriod:  60 * 1000000000,
                     Cmd:                [
                                             "/entrypoint.sh",
-                                            "-proxy-pass=http://next:8080", //'next' will be passed to next link in the chain
+                                            "-proxy-pass=http://next:80", //'next' will be passed to next link in the chain
                                             "-SecRuleEngine=On",
                                         ],
                     Env:                [],
