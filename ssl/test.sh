@@ -11,6 +11,7 @@ echo "This demonstrates the power of a downloading from images.json, a custom co
 docker run --rm -it \
       --name polyverse_microservice_firewall \
       -p 8080:8080 \
+      -p 8443:8443 \
       --privileged \
       -v $PWD/ssl.key:/secrets/ssl.key \
       -v $PWD/ssl.crt:/secrets/ssl.crt \
