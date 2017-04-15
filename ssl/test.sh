@@ -16,6 +16,6 @@ docker run --rm -it \
       -v $PWD/ssl.key:/secrets/ssl.key \
       -v $PWD/ssl.crt:/secrets/ssl.crt \
       -v $PWD/polyverse.yaml:/polyverse.yaml \
-      -v $PWD/appdef.js:/appdef.ks \
+      -v $PWD/appdef.js:/appdef.js \
       -v $PWD/images.json:/images.json \
       $msf

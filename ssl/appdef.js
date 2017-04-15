@@ -62,9 +62,10 @@ app = function() {
 
     return {
         Name: function(c) {
-            return "website";
+            return "SslDemo";
         },
         IsRequestSupported: function(r, c) {
+            c.Log.Infof("================================ ROUTE: %v", r);
             return true;
         },
         Route: function(r, c) {
@@ -73,7 +74,6 @@ app = function() {
             var agent = r.Header['User-Agent'];
             var proto = r.Header['X-Forwarded-Proto']; //Set by upstream LB
 
-            c.Log.Infof("%v", r);
 
             // ok iff https or AWS ELB health check, else redirect
             if ( 'https' == proto )
