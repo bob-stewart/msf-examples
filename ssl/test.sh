@@ -12,7 +12,7 @@ docker run --rm -it \
       --name polyverse_microservice_firewall \
       -p 8080:8080 \
       --privileged \
-      -v $PWD/ssk.key:/secrets/ssl.key \
+      -v $PWD/ssl.key:/secrets/ssl.key \
       -v $PWD/ssl.crt:/secrets/ssl.crt \
       -v $PWD/polyverse.yaml:/polyverse.yaml \
       -v $PWD/appdef.js:/appdef.ks \
