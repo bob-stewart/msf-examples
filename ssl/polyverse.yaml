@@ -2,8 +2,6 @@ polyverse.config.router.ssl_on: "true"
 polyverse.config.router.ssl_cert_file_path: "/run/secrets/ssl.crt"
 polyverse.config.router.ssl_private_key_file_path: "/run/secrets/ssl.key"
 polyverse.config.router.ssl_hostname: "localhost"
-polyverse.config.router.secure_port: "443"
-polyverse.config.router.port: "80"
 
 polyverse.config.components.router.exposed_secrets: |
   ["ssl.crt", "ssl.key"]
