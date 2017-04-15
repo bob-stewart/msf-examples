@@ -32,7 +32,7 @@ app = function() {
                     BaseImage:          "tutum/hello-world:latest",
                     HealthCheckURLPath: "/",
                     LaunchGracePeriod:  10 * 1000000000,
-                    BindingPort:        8080,
+                    BindingPort:        80,
                 }
             ]
         }
@@ -65,19 +65,14 @@ app = function() {
             return "SslDemo";
         },
         IsRequestSupported: function(r, c) {
-            c.Log.Infof("================================ ROUTE: %v", r);
             return true;
         },
         Route: function(r, c) {
-            var host  = r.Host;
-            var path  = r.URL.Path;
-            var agent = r.Header['User-Agent'];
             var proto = r.Header['X-Forwarded-Proto']; //Set by upstream LB
 
 
             // ok iff https or AWS ELB health check, else redirect
-            if ( 'https' == proto )
-            {
+            if ( r.TLS || 'https' == proto ) {
                 return defaultRouteInfo
             } else {
                 return redirectorRouteInfo
