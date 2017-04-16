@@ -1,5 +1,7 @@
 echo "Reading latest known published MSF."
-msf=$(cat ../msf)
+if [[ "$msf" == "" ]]; then
+        msf=$(cat ../msf)
+fi
 echo "Using MSF: $msf"
 
 echo "Pulling Microservice Firewall (be sure you are logged into to docker registry.)"
