@@ -14,7 +14,7 @@ In nearly all cases, you should be able to clone this repo, and then go into a s
 
 Everything you need to run that scenario should be in that directory.
 
-## (Version override)
+## Override version of Microservice Firewall that the examples use
 
 Since the tag in Docker Store updates slower than Microservice builds we publish to our contracted customers, these examples may not necessarily work with the image published on the store. Some examples are meant for not-yet-released versions.
 
