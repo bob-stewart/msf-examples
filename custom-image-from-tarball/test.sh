@@ -23,6 +23,6 @@ docker run --rm -it \
       -p 8080:8080 \
       -p 8443:8443 \
       --privileged \
-      -v $PWD/appdef.js:/appdef.js \
       -v $PWD/images.tar.gz:/images.tar.gz \
-      $msf
+      $msf \
+      tutum/hello-world
