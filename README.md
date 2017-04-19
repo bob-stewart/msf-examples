@@ -4,6 +4,16 @@ This repository contains examples on the various things you can do with
 the [Microservice Firewall](https://store.docker.com/images/microservice-firewall?tab=description),
 which is available on the docker store for download.
 
+# Table of contents
+
+1. [How to run examples](#how-to-run-examples)
+    1. [Login to Docker](#login-to-docker)
+    2. [Run ./test.sh under any scenario directory](#run-testsh-under-any-scenario-directory)
+    3. [Running examples securely](#running-examples-securely)
+2. [Additional Tricks/Hacks/Tips](#additional-trickshackstips)
+    1. [Open a shell into the Microservice Firewall and poke around](#open-a-shell-into-the-microservice-firewall-and-poke-around)
+    2. [Override version of Microservice Firewall that the examples use](#override-version-of-microservice-firewall-that-the-examples-use)
+
 ## How to run examples
 
 ### Login to Docker
@@ -26,12 +36,84 @@ Login Succeeded
 
 ### Run ./test.sh under any scenario directory
 
+**DISCLAIMER: THE DEFAULT TEST SCRIPT WILL LAUNCH A PRIVILEGED
+CONTAINER. Plese see the next section
+[Running examples securely](#running-examples-securely) to learn how
+to launch examples without the --privileged flag.**
+
 In nearly all cases, you should be able to clone this repo, and then go
 into a scenario directory (for example, you'd go into "ssl" to see how
 Polyverse can SSL-wrap your service and handle redirections), and then
 run `./test.sh`.
 
 Everything you need to run that scenario should be in that directory.
+
+### Running examples Securely
+
+With great security, comes just a tad bit more responsibility. This
+section will inform you how to run Polyverse on your swarm without
+requiring the `--privileged` flag used in the examples. It will
+explain why we added it in the first place. We welcome better methods
+on packaging.
+
+#### TL;DR: how do I run it?
+
+In order to run Microservice Firewall on a Docker Swarm, all you need to
+do is, under any examples directory, edit the script `test.sh` and
+replace the `--privileged` flag with either of the following:
+ * `-v /var/lib/docker.sock:/var/lib/docker.sock` if you are running
+ a Docker daemon locally and have it initialized in Swarm Mode (by
+ running `docker swarm init`)
+
+ * `-e "DOCKER_HOST=<swarmhost:swarmport>" ...` You would basically
+ specify the exact same environment variables to the MSF container as
+ you would if you were connecting to the swarm from the CLI.
+
+This will make the Microservice Firewall connect to that external and
+non-privileged endpoint and copy all its container images on there
+using `docker load` and inject any configuration files using secrets,
+and launch the supervisor.
+
+#### What responsibilities does this bring?
+
+Launching Polyverse in this mode brings with it some responsibilities
+that you, as a user, must undertake.
+
+* The major responsibility is that of ensuring the proper environment
+exists for MSF to run on. Will have to launch the Docker Engine in
+Swarm Mode, provide proper credentials to the MSF container to connect
+to it, and debug any connection problems (if you give a DOCKER_HOST
+environment variable for instance, you'll have to make sure it is
+reachable and routable from the inner Docker CLI.)
+
+* When you want to shut down Polyverse, you may find a proliferatio of
+services and containers. This is, afterall, our speciality. We launch
+and manage dozens of instances of your Microservice. So you will
+need to shut them all down properly. If you are running no other
+services on the same swarm, this should be as simple as running:
+`docker service rm $(docker service ls -q)` on your command prompt.
+
+
+#### Why do we pack as Docker-in-Docker?
+
+Polyverse is designed to run on a swarm that is configured in a certain
+way with parameters passed to Polyverse's Supervisor (who is
+responsible for launching the entire system and managing it.)
+
+This isn't complicated, but a bit difficult to explain at first sight.
+In order to get past the initial hurdle (and also for internal testing),
+we launch Polyverse using a "Docker-in-Docker" method. Inside the
+Microservice Firewall, we launch a full Docker Daemon, initialize a
+swarm on it, and set up files/mounts just the way we like them.
+
+It also ensures we get to run in a swarm of a specific version with
+parameters and APIs we've tested.
+
+This allows us to pack and ship a complete and ideal environment for
+us to demonstrate our canonical way of running Polyverse.
+
+Finally, this is also how we can rapidly test Polyverse under specific
+conditions.
 
 ## Additional Tricks/Hacks/Tips
 
