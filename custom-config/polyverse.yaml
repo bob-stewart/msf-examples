@@ -1,1 +1,1 @@
-polyverse.config.monitoring.log_level: "error"
+polyverse.config.monitoring.log_level: "debug"
