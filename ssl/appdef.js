@@ -40,7 +40,7 @@ app = function() {
 
     var redirectorRouteInfo = {
         RouteType:          4,
-        ID:                 "redirector",
+        ID:                 "redirector_no_port",
         Timeout:            365 * 24 * 60 * 60 * 1000000000,
         ContainerChain: {
             ConnectionDrainGracePeriod: 5 * 1000000000,
@@ -62,7 +62,7 @@ app = function() {
 
     var redirectorWithPortRouteInfo = {
         RouteType:          4,
-        ID:                 "redirector",
+        ID:                 "redirector_with_port",
         Timeout:            365 * 24 * 60 * 60 * 1000000000,
         ContainerChain: {
             ConnectionDrainGracePeriod: 5 * 1000000000,
