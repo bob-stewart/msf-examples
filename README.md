@@ -37,7 +37,7 @@ Login Succeeded
 ### Run ./test.sh under any scenario directory
 
 **DISCLAIMER: THE DEFAULT TEST SCRIPT WILL LAUNCH A PRIVILEGED
-CONTAINER. Plese see the next section
+CONTAINER. Please see the next section
 [Running examples securely](#running-examples-securely) to learn how
 to launch examples without the --privileged flag.**
 
@@ -86,15 +86,14 @@ to it, and debug any connection problems (if you give a DOCKER_HOST
 environment variable for instance, you'll have to make sure it is
 reachable and routable from the inner Docker CLI.)
 
-* When you want to shut down Polyverse, you may find a proliferatio of
-services and containers. This is, afterall, our speciality. We launch
-and manage dozens of instances of your Microservice. So you will
+* When you want to shut down Polyverse, you may find a proliferation of
+services and containers. This is, after all, our speciality. We launch
+and manage dozens of instances of your Microservice, so you will
 need to shut them all down properly. If you are running no other
 services on the same swarm, this should be as simple as running:
 `docker service rm $(docker service ls -q)` on your command prompt.
 
-
-#### Why do we pack as Docker-in-Docker?
+#### Why do we package as Docker-in-Docker?
 
 Polyverse is designed to run on a swarm that is configured in a certain
 way with parameters passed to Polyverse's Supervisor (who is
@@ -161,9 +160,9 @@ bash-4.3#
 ## Override version of Microservice Firewall that the examples use
 
 Since the tag in Docker Store updates slower than Microservice builds
-we publish to our contracted customers, these examples may not
+that we publish to our contracted customers, these examples may not
 necessarily work with the image published on the store. Some examples
-are meant for not-yet-released versions. Sometimes for contracted
+are meant for not-yet-released versions. Sometimes, for contracted
 customers, we may release patched releases or special functionality
 that does not apply generally.
 
