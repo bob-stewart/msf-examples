@@ -1,7 +1,0 @@
-polyverse/config/scrambled_binaries: "false"
-polyverse/config/monitoring/log_container_changes: "true"
-polyverse/config/monitoring/log_metrics: "false"
-polyverse/config/monitoring/log_source_line: "false"
-polyverse/config/router/route_up/status_code: "503"
-kv/image_name: "polyverse/emcee:latest"
-kv/binding_port: "80"
