@@ -17,7 +17,7 @@ echo "**********************************************************************"
 echo ""
 echo ""
 echo "**********************************************************************"
-echo "Waiting for wrappeed polyverse/emcee to be healthy: ******************"
+echo "Waiting for wrapped polyverse/emcee to be healthy: *******************"
 echo "**********************************************************************"
 while [[ "$(docker inspect --format '{{ .State.Health.Status }}' wrapped-mc 2>/dev/null)" != "healthy" ]]; do
 	sleep 5
