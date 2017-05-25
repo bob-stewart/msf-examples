@@ -20,11 +20,9 @@ app = function() {
         RouteType: 4,
         ID:        "default-route",
         Timeout:   10 * 1000000000,
-        Stateful:  true,
         ContainerChain: {
+          Stateful:  true,
           ConnectionDrainGracePeriod: 60 * 60 * 1000000000,
-          PerInstanceTimeout:         60 * 1000000000,
-          DesiredInstances:           2,
           Chain: [
             customerChainComponentProducer(imageName, bindingPort, wrapInfo)
           ]
