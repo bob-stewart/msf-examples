@@ -19,7 +19,7 @@ app = function() {
       return {
         RouteType: 4,
         ID:        "default-route",
-        Timeout:   10 * 1000000000,
+        Timeout:   30 * 1000000000,
         ContainerChain: {
           Stateful:  true,
           ConnectionDrainGracePeriod: 60 * 60 * 1000000000,
