@@ -17,9 +17,10 @@ app = function() {
   var routeInfoProducer =
     function(imageName, bindingPort, wrapInfo) {
       return {
-        RouteType:                  4,
-        ID:                         "default-route",
-        Timeout:                    30 * 1000000000,
+        RouteType: 4,
+        ID:        "default-route",
+        Timeout:   10 * 1000000000,
+        Stateful:  true,
         ContainerChain: {
           ConnectionDrainGracePeriod: 60 * 60 * 1000000000,
           PerInstanceTimeout:         60 * 1000000000,
