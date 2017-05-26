@@ -30,36 +30,40 @@ app = function() {
       };
     };
 
-  return {
-    Name: function() {
-      return "wrapped-mc";
-    },
-    IsRequestSupported: function(r,c) {
-      return true;
-    },
-    Route: function(r,c) {
-      var routeId     = r.RemoteAddr.replace(/[^a-zA-Z0-9]/g,'-').replace(/-{2,}/g, '-');
-      var bindingPort = c.Kv.Get("bindingPort");
-      var imageName   = c.Kv.Get("imageName");
-      var wrapInfo    = c.Kv.Get("wrapInfo");
-      var wrapInfoJ   = JSON.parse(wrapInfo);
-
-
-      c.Log.Infof("r: %s", r);
-      c.Log.Infof("routeId: %s", routeId);
-      c.Log.Infof("imageName: %s", imageName);
-      c.Log.Infof("bindingPort: %d", bindingPort);
-      c.Log.Infof("wrapInfo: %s", wrapInfo);
-      c.Log.Info(wrapInfoJ);
-
-      return routeInfoProducer(routeId, imageName, bindingPort, wrapInfoJ);
-    },
-    ValidationInfo: function() {
+  var appProducer =
+    function() {
       return {
-        PositiveRequests: [],
-        NegativeRequests: []
+        Name: function() {
+          return "wrapped-mc";
+        },
+        IsRequestSupported: function(r,c) {
+          return true;
+        },
+        Route: function(r,c) {
+          var routeId     = r.RemoteAddr.replace(/[^a-zA-Z0-9]/g,'-').replace(/-{2,}/g, '-');
+          var bindingPort = c.Kv.Get("bindingPort");
+          var imageName   = c.Kv.Get("imageName");
+          var wrapInfo    = c.Kv.Get("wrapInfo");
+          var wrapInfoJ   = JSON.parse(wrapInfo);
+
+          c.Log.Infof("r: %s", r);
+          c.Log.Infof("routeId: %s", routeId);
+          c.Log.Infof("imageName: %s", imageName);
+          c.Log.Infof("bindingPort: %d", bindingPort);
+          c.Log.Infof("wrapInfo: %s", wrapInfo);
+          c.Log.Info(wrapInfoJ);
+
+          return routeInfoProducer(routeId, imageName, bindingPort, wrapInfoJ);
+        },
+        ValidationInfo: function() {
+          return {
+            PositiveRequests: [],
+            NegativeRequests: []
+          };
+        }
       };
-    }
-  };
+    };
+
+  return appProducer();
 }();
 
