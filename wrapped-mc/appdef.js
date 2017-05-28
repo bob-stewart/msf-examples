@@ -1,30 +1,30 @@
 app = function() {
 
   var customerChainComponentProducer = 
-    function(imageName, bindingPort, wrapInfo) {
+    function(appImageName, appHTTPPort, wrapInfo) {
       return {
-        BaseImage:          imageName,
+        BaseImage:          appImageName,
         Args:               wrapInfo.args,
         Env:                wrapInfo.envs,
         ExtraHosts:         wrapInfo.hosts,
         Mounts:             wrapInfo.mounts,
         HealthCheckURLPath: "/",
         LaunchGracePeriod:  5 * 60 * 1000000000,
-        BindingPort:        parseInt(bindingPort)
+        BindingPort:        parseInt(appHTTPPort)
       };
     };
 
   var routeInfoProducer =
-    function(routeId, imageName, bindingPort, wrapInfo) {
+    function(remoteId, appImageName, appHTTPPort, wrapInfo) {
       return {
         RouteType: 4,
-        ID:        routeId,
+        ID:        remoteId,
         Timeout:   10 * 1000000000,
         ContainerChain: {
           Stateful:  true,
           ConnectionDrainGracePeriod: 60 * 60 * 1000000000,
           Chain: [
-            customerChainComponentProducer(imageName, bindingPort, wrapInfo)
+            customerChainComponentProducer(appImageName, appHTTPPort, wrapInfo)
           ]
         }
       };
@@ -40,20 +40,20 @@ app = function() {
           return true;
         },
         Route: function(r,c) {
-          var routeId     = r.RemoteAddr.replace(/[^a-zA-Z0-9]/g,'-').replace(/-{2,}/g, '-');
-          var bindingPort = c.Kv.Get("bindingPort");
-          var imageName   = c.Kv.Get("imageName");
-          var wrapInfo    = c.Kv.Get("wrapInfo");
-          var wrapInfoJ   = JSON.parse(wrapInfo);
+          var remoteId       = r.RemoteAddr.replace(/[^a-zA-Z0-9]/g,'-').replace(/-{2,}/g, '-');
+          var appHTTPPort    = c.Kv.Get("appHTTPPort");
+          var appImageName   = c.Kv.Get("appImageName");
+          var wrapInfo       = c.Kv.Get("wrapInfo");
+          var wrapInfoJ      = JSON.parse(wrapInfo);
 
           c.Log.Infof("r: %s", r);
-          c.Log.Infof("routeId: %s", routeId);
-          c.Log.Infof("imageName: %s", imageName);
-          c.Log.Infof("bindingPort: %d", bindingPort);
+          c.Log.Infof("remoteId: %s", remoteId);
+          c.Log.Infof("appImageName: %s", appImageName);
+          c.Log.Infof("appHTTPPort: %d", appHTTPPort);
           c.Log.Infof("wrapInfo: %s", wrapInfo);
           c.Log.Info(wrapInfoJ);
 
-          return routeInfoProducer(routeId, imageName, bindingPort, wrapInfoJ);
+          return routeInfoProducer(remoteId, appImageName, appHTTPPort, wrapInfoJ);
         },
         ValidationInfo: function() {
           return {

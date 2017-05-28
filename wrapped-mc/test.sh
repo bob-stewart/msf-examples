@@ -11,7 +11,7 @@ echo ""
 echo "**********************************************************************"
 echo "Starting wrapped polyverse/emcee with redirection disabled: **********"
 echo "**********************************************************************"
-docker run --rm --name=wrapped-mc -d -it --privileged -e SA_BINDING_PORT=80 -e SA_NO_PULL=TRUE -v /var/run/docker.sock:/var/run/outer_docker.sock -v $PWD/appdef.js:/appdef.js -p 80:8080 polyverse/standalone:latest polyverse/emcee:latest -redirect=false
+docker run --rm --name=wrapped-mc -d -it --privileged -e SA_APP_HTTP_PORT=80 -e SA_NO_PULL=TRUE -v /var/run/docker.sock:/var/run/outer_docker.sock -v $PWD/appdef.js:/appdef.js -p 80:8080 polyverse/standalone:latest polyverse/emcee:latest -redirect=false
 echo "Done"
 echo "**********************************************************************"
 echo ""
