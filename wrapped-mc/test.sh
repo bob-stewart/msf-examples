@@ -44,7 +44,8 @@ echo ""
 echo "**********************************************************************"
 echo "Testing websocketecho over HTTP for 75 seconds: **********************"
 echo "**********************************************************************"
-curl --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: localhost" --header "Origin: http://localhost/websocket" --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" --header "Sec-WebSocket-Version: 13" --no-buffer --max-time 75 http://localhost/websocketecho
+curl --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: localhost" --header "Origin: http://localhost/websocket" --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" --header "Sec-WebSocket-Version: 13" --no-buffer --max-time 75 http://localhost/websocketecho 2>/dev/null
+echo ""
 echo "**********************************************************************"
 echo ""
 echo ""
