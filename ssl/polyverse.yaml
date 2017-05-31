@@ -3,6 +3,6 @@ polyverse.config.router.ssl_cert_file_path: "/run/secrets/ssl.crt"
 polyverse.config.router.ssl_private_key_file_path: "/run/secrets/ssl.key"
 polyverse.config.router.ssl_hostname: "localhost"
 
-polyverse.config.components.router.exposed_secrets: |
+polyverse.config.components.router.secrets: |
   ["ssl.crt", "ssl.key"]
 
