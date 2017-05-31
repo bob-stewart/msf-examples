@@ -6,3 +6,6 @@ polyverse.config.router.ssl_hostname: "localhost"
 polyverse.config.components.router.secrets: |
   ["ssl.crt", "ssl.key"]
 
+polyverse.config.components.router.exposed_secrets: |
+  ["ssl.crt", "ssl.key"]
+
