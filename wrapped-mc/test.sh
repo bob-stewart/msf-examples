@@ -3,15 +3,15 @@
 echo "**********************************************************************"
 echo "Pull docker images that we'll be needing: ****************************"
 echo "**********************************************************************"
-docker pull polyverse/standalone:latest
-docker pull polyverse/emcee:latest
+docker pull polyverse-store.jfrog.io/standalone:latest
+docker pull polyverse-tools.jfrog.io/emcee:latest
 echo "**********************************************************************"
 echo ""
 echo ""
 echo "**********************************************************************"
-echo "Starting wrapped polyverse/emcee with redirection disabled: **********"
+echo "Starting wrapped polyverse-tools.jfrog.io/emcee: *********************"
 echo "**********************************************************************"
-docker run --rm --name=wrapped-mc -d -it --privileged -e SA_APP_HTTP_PORT=80 -e SA_NO_PULL=TRUE -v /var/run/docker.sock:/var/run/outer_docker.sock -v $PWD/appdef.js:/appdef.js -p 80:8080 polyverse/standalone:latest polyverse/emcee:latest -redirect=false
+docker run --rm --name=wrapped-mc -d -it --privileged -e SA_APP_HTTP_PORT=80 -e SA_NO_PULL=TRUE -v /var/run/docker.sock:/var/run/outer_docker.sock -v $PWD/appdef.js:/appdef.js -p 80:8080 polyverse-store.jfrog.io/standalone:latest polyverse-tools.jfrog.io/emcee:latest -redirect=false
 echo "Done"
 echo "**********************************************************************"
 echo ""
